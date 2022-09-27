@@ -1,0 +1,83 @@
+.addingPage__form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 500px;
+    gap: 100px;
+}
+
+.addingPage__form input {
+    height: 50px;
+    width: 300px;
+    font-size: 30px;
+}
+.addingPage__form button {
+
+    height: 55px;
+    width: 200px;
+}
+
+.dictionary{
+    background-color: gray;
+    width: 500px;
+    margin: 0  auto;
+
+}
+.dictionary__item{
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    background-color: #fff;
+    margin-left: -15px;
+    flood-color: blueviolet;
+}
+.rus{
+    font-size: 20px;
+    color: midnightblue;
+    font-weight: 600;
+}
+.eng{
+    font-size: 20px;
+    color: green;
+    font-weight: 600;
+}
+
+.game{
+    width: 100%;
+    height: calc(100vh - 300px);
+    background-color: deeppink;
+    padding: 50px 0 ;
+}
+h1{
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 60px;
+}
+.game p{
+    width: 200px;
+    height: 50px;
+    text-transform: uppercase;
+    background-color: black;
+    font-size: 20px;
+    color: white;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.game__container{
+
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.game p:hover{
+    text-decoration: underline;
+}
