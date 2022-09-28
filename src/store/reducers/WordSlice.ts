@@ -1,13 +1,16 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IWord} from "../../models/IWords";
+import {IResult, IWord} from "../../models/IWords";
 
 interface WordsState {
     words: IWord[];
+    playerResults:IResult[]
     isLoading: boolean
     error: string
     count: number
     winRate: number
+    playerName: string
 }
+
 
 const initialState: WordsState = {
     words: [
@@ -130,13 +133,60 @@ const initialState: WordsState = {
             id: 24,
             rus: 'свет',
             eng: 'light'
-        }
+        },
+
+        {
+            id: 25,
+            rus: 'столица',
+            eng: 'capital'
+        },{
+            id: 26,
+            rus: 'большой',
+            eng: 'big'
+        },
+        {
+            id: 27,
+            rus: 'сад',
+            eng: 'garden'
+        },
+        {
+            id: 28,
+            rus: 'лампа',
+            eng: 'lamp'
+        },
+        {
+            id: 29,
+            rus: 'холодильник',
+            eng: 'fridge'
+        },{
+            id: 30,
+            rus: 'рыба',
+            eng: 'fish'
+        },
+        {
+            id: 31,
+            rus: 'охотник',
+            eng: 'hunter'
+        },
+        {
+            id: 32,
+            rus: 'певец',
+            eng: 'singer'
+        },
+        {
+            id: 33,
+            rus: 'сообщение',
+            eng: 'message'
+        },
+
 
     ],
+    playerResults:[],
     isLoading: false,
     error: '',
-    count: 0,
+    count: 1,
     winRate: 0,
+    playerName: ''
 }
 
 export const wordSlice = createSlice({
@@ -144,13 +194,26 @@ export const wordSlice = createSlice({
     initialState,
     reducers: {
         addWord(state, action: PayloadAction<IWord>) {
-            state.words.push(action.payload)
+            state.words.push(action.payload);
         },
         increment(state,action:PayloadAction<number>){
-            state.count += action.payload
+            state.count += action.payload;
         },
         winRateInc(state,action:PayloadAction<number>){
-            state.winRate += action.payload
+            state.winRate += action.payload;
+        },
+        refreshResults(state){
+            state.winRate = 0;
+            state.count = 1;
+            state.playerName = '';
+        },
+        setName(state,action:PayloadAction<string>){
+           state.playerName = action.payload;
+        },
+        addResult(state,action:PayloadAction<IResult>){
+            state.playerResults.push(action.payload);
+            state.winRate = 0;
+            state.count = 1;
         }
     }
 })
