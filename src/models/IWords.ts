@@ -5,9 +5,10 @@ export interface IWord {
 }
 
 export interface IResult{
-    id: number
     data: string
-    name: string
+    playerName: string
     winRate: number
+    wrongAnswers: string[]
+
 
 }

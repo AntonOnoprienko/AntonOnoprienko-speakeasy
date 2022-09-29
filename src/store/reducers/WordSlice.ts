@@ -9,6 +9,7 @@ interface WordsState {
     count: number
     winRate: number
     playerName: string
+    wrongAnswers: string[]
 }
 
 
@@ -186,7 +187,8 @@ const initialState: WordsState = {
     error: '',
     count: 1,
     winRate: 0,
-    playerName: ''
+    playerName: '',
+    wrongAnswers:[]
 }
 
 export const wordSlice = createSlice({
@@ -214,7 +216,12 @@ export const wordSlice = createSlice({
             state.playerResults.push(action.payload);
             state.winRate = 0;
             state.count = 1;
+            state.wrongAnswers = [];
+        },
+        setWrongAnswers(state,action:PayloadAction<string>){
+            state.wrongAnswers.push(action.payload)
         }
+
     }
 })
 
