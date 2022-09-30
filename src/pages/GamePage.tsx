@@ -3,30 +3,41 @@ import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {wordSlice} from "../store/reducers/WordSlice";
 import React, {useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
-
+import {IWord} from "../models/IWords";
 
 const GamePage = () => {
     console.log('render gamePage!')
-    const [player,setPlayer] = useState('')
-    const {words, count, winRate, playerName, wrongAnswers} = useAppSelector(state => state.wordReducer)
+    const [player, setPlayer] = useState('')
+    const {tempWords, count, winRate, playerName, wrongAnswers} = useAppSelector(state => state.wordReducer)
     const dispatch = useAppDispatch()
-    const {increment, winRateInc, refreshResults,setName,addResult,setWrongAnswers } = wordSlice.actions
-
-    const randomNumber = () => { return Math.floor(Math.random() * words.length)}
-    const randomArray = [words[randomNumber()],words[randomNumber()],words[randomNumber()],words[randomNumber()]];
+    const {increment, winRateInc, refreshResults, setName, addResult, setWrongAnswers, removeWord,createTempState} = wordSlice.actions
+    const randomNumber = (tempWords: IWord[]) => {
+        return Math.floor(Math.random() * tempWords.length)
+    };
     const randomWord = Math.floor(Math.random() * 4)
+    let uniqueArray: IWord[] = []
 
-    const choseHandler = (e:any) => {
+    const randomWords = (tempWords: IWord[]): IWord[] => {
+        let newWord: IWord = tempWords[randomNumber(tempWords)];
+        if (!uniqueArray.includes(newWord) && uniqueArray.length < 4) uniqueArray = uniqueArray.concat(newWord)
+        if (uniqueArray.length < 4) {
+            return randomWords(tempWords);
+        }
+        return uniqueArray;
+    }
+
+    const choseHandler = (e: any) => {
         dispatch(increment(1))
-        if(e.target.childNodes[0].data === randomArray[randomWord].eng){
+        if (e.target.childNodes[0].data === randomWords(tempWords)[randomWord].eng) {
             dispatch(winRateInc(10))
+            dispatch(removeWord(randomWords(tempWords)[randomWord].id))
         } else {
-            dispatch(setWrongAnswers(randomArray[randomWord].rus))
+            dispatch(setWrongAnswers(randomWords(tempWords)[randomWord].rus))
         }
         checkResults()
     }
     const checkResults = () => {
-        if(count > 10 ){
+        if (count > 10) {
             let result = {
                 id: Date.now(),
                 data: new Date().toLocaleString("en-US"),
@@ -41,15 +52,16 @@ const GamePage = () => {
     }
     const playerNameSubmit = () => {
         dispatch(setName(player))
+        dispatch(createTempState())
         console.log(player)
     }
     const onChangePlayerName = (event: React.FormEvent<HTMLInputElement>) => {
         setPlayer(event.currentTarget.value)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         checkResults()
-    },[checkResults])
+    }, [checkResults])
     return (
         <section className={classes.game}>
             {count > 10 && <Navigate to='/results'/>}
@@ -67,21 +79,13 @@ const GamePage = () => {
                     </div>
                 </div>
             </div>}
-
-
-            { playerName && <h1>{randomArray[randomWord].rus}</h1>}
-            { playerName && <div className={classes.game__container}>
-
-
-
-                <p onClick={(e)=>{choseHandler(e)}}>{randomArray[0].eng}</p>
-                <p onClick={(e)=>{choseHandler(e)}}>{randomArray[1].eng}</p>
-                <p onClick={(e)=>{choseHandler(e)}}>{randomArray[2].eng}</p>
-                <p onClick={(e)=>{choseHandler(e)}}>{randomArray[3].eng}</p>
-
+            {playerName && <h1>{randomWords(tempWords)[randomWord].rus}</h1>}
+            {playerName && <div className={classes.game__container}>
+                {randomWords(tempWords).map(w => <p onClick={(e) => {
+                    choseHandler(e)
+                }} key={w.id}>{w.eng}</p>)}
             </div>}
-
         </section>
     )
 }
-export default  GamePage;
+export default GamePage;

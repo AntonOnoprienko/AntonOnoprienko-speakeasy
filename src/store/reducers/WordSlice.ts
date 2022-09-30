@@ -3,6 +3,7 @@ import {IResult, IWord} from "../../models/IWords";
 
 interface WordsState {
     words: IWord[];
+    tempWords: IWord[];
     playerResults:IResult[]
     isLoading: boolean
     error: string
@@ -182,6 +183,7 @@ const initialState: WordsState = {
 
 
     ],
+    tempWords: [],
     playerResults:[],
     isLoading: false,
     error: '',
@@ -220,7 +222,14 @@ export const wordSlice = createSlice({
         },
         setWrongAnswers(state,action:PayloadAction<string>){
             state.wrongAnswers.push(action.payload)
-        }
+        },
+        removeWord(state,action:PayloadAction<number>){
+            state.tempWords = state.tempWords.filter(w => w.id !== action.payload)
+        },
+        createTempState(state){
+            state.tempWords = state.words
+        },
+
 
     }
 })
