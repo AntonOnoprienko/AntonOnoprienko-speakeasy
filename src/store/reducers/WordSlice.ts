@@ -17,38 +17,38 @@ const initialState: WordsState = {
     words: [
         {
             id: 1,
-            rus: 'радуга',
-            eng: 'rainbow'
+            rus: 'уменьшать',
+            eng: 'abate'
         },
         {
             id: 2,
-            rus: 'собака',
-            eng: 'dog'
+            rus: 'отказываться',
+            eng: 'abjure'
         },
         {
             id: 3,
-            rus: 'кошка',
-            eng: 'cat'
+            rus: 'предсказание',
+            eng: 'augury'
         },
         {
             id: 4,
-            rus: 'кролик',
-            eng: 'rabbit'
+            rus: 'алчный',
+            eng: 'avaricious'
         },
         {
             id: 5,
-            rus: 'машина',
-            eng: 'car'
+            rus: 'уговаривание',
+            eng: 'blandishment'
         },
         {
             id: 6,
-            rus: 'дерево',
-            eng: 'tree'
+            rus: 'грубиян',
+            eng: 'boor'
         },
         {
             id: 7,
-            rus: 'самолет',
-            eng: 'plain'
+            rus: 'уставной',
+            eng: 'canonical'
         },
         {
             id: 8,
@@ -57,13 +57,14 @@ const initialState: WordsState = {
         },
         {
             id: 9,
-            rus: 'дом',
-            eng: 'house'
+            rus: 'Соответственный',
+            eng: 'commensurate'
+
         },
         {
             id: 10,
-            rus: 'кофе',
-            eng: 'coffee'
+            rus: 'виновность',
+            eng: 'culpability'
         },
         {
             id: 11,

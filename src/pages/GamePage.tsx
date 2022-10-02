@@ -44,6 +44,7 @@ const GamePage = () => {
             dispatch(winRateInc(10))
             dispatch(removeWord(randomWords(tempWords)[randomWord].id))
         } else {
+            dispatch(removeWord(randomWords(tempWords)[randomWord].id))
             dispatch(setWrongAnswers(randomWords(tempWords)[randomWord].eng))
         }
         checkResults()
@@ -95,7 +96,7 @@ const GamePage = () => {
                 <p>Step: <b>{count}</b>/10</p>
             </div>
             <div className={classes.game__container}>
-                {playerName && <h2 className={classes.game__question}>{randomWords(tempWords)[randomWord].eng}</h2>}
+                {playerName && <h2 className={ randomWords(tempWords)[randomWord].eng.length < 12 ? classes.game__question : classes.game__question_longName} >{randomWords(tempWords)[randomWord].eng}</h2>}
                 {playerName && <div className={classes.game__answers}>
                     {randomWords(tempWords).map(w => <p className={classes.game_answers__item} onClick={(e) => {
                         choseHandler(e)
