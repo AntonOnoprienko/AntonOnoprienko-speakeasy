@@ -5,7 +5,6 @@ import {wordSlice} from "../store/reducers/WordSlice";
 
 
 const AddingPage = () => {
-    console.log('Adding page render!')
     const [rus, setRus] = useState('');
     const [eng, setEng] = useState('');
     const [isExist, setIsExist] = useState(false);

@@ -6,7 +6,7 @@ import {Navigate} from "react-router-dom";
 import {IWord} from "../models/IWords";
 
 const GamePage = () => {
-    console.log('render gamePage!')
+
     const [player, setPlayer] = useState('')
     const {tempWords, count, winRate, playerName, wrongAnswers} = useAppSelector(state => state.wordReducer)
     const dispatch = useAppDispatch()
