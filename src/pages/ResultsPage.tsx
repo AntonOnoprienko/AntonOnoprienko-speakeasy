@@ -5,7 +5,8 @@ import {Link} from "react-router-dom";
 export const ResultsPage = () => {
     const results = useAppSelector(state => state.wordReducer.playerResults)
     return (
-        <div style={{padding: '30px'}}>
+        <div className={classes.resultsPage}>
+
             {
                 !results[0] &&
                 <p className={classes.withoutResults}>
@@ -20,11 +21,11 @@ export const ResultsPage = () => {
                         <p><span>Right answers:</span> {r.winRate}%</p>
                         {r.wrongAnswers.length ?
                             <p>Wrong answers: {r.wrongAnswers.map(a =>
-                                <span key={a}> "{a.toUpperCase()} ", </span>)}</p>:
-                            <b><p style={{color:'green',fontSize:'18px'}}>Congratulations! Everything is correct!</p></b> }
+                                <span key={a}> "{a.toUpperCase()} ", </span>)}</p> :
+                            <b><p style={{color: 'green', fontSize: '18px'}}>Congratulations! Everything is correct!</p>
+                            </b>}
                     </div>)
             }
-
         </div>
     )
 }

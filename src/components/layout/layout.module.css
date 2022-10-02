@@ -39,5 +39,19 @@ a{
 
 .active_link li{
     color: #E5C3D1;
-
+}
+.footer__content{
+    padding-top: 30px;
+    font-weight: 500;
+    text-align: center;
+    color: #7D82B8;
+}
+.footer__content a {
+    color: inherit;
+}
+@media (max-width: 400px) {
+    .navbar__item {
+        padding-top: 10px;
+        font-size: 20px;
+    }
 }

@@ -10,7 +10,16 @@ const GamePage = () => {
     const [player, setPlayer] = useState('')
     const {tempWords, count, winRate, playerName, wrongAnswers} = useAppSelector(state => state.wordReducer)
     const dispatch = useAppDispatch()
-    const {increment, winRateInc, refreshResults, setName, addResult, setWrongAnswers, removeWord,createTempState} = wordSlice.actions
+    const {
+        increment,
+        winRateInc,
+        refreshResults,
+        setName,
+        addResult,
+        setWrongAnswers,
+        removeWord,
+        createTempState
+    } = wordSlice.actions
     //Создает рандомное число по длине словаря
     const randomNumber = (tempWords: IWord[]) => {
         return Math.floor(Math.random() * tempWords.length)
@@ -55,7 +64,8 @@ const GamePage = () => {
         }
     }
     //Добавляет имя и создает копию словаря
-    const playerNameSubmit = () => {
+    const playerNameSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
+        event.preventDefault()
         dispatch(setName(player))
         dispatch(createTempState())
         console.log(player)
@@ -69,27 +79,30 @@ const GamePage = () => {
     }, [checkResults])
     return (
         <section className={classes.game}>
-            {count > 10 && <Navigate to='/results'/>}
+            {!playerName && <div className={classes.game__modal}>
+                <form className={classes.game_modal__form}>
+                    <label htmlFor={'name'} className={classes.game_modal__title}>insert your name, please!</label>
+                    <input id={'name'} maxLength={20} onChange={(event) => onChangePlayerName(event)} type={'text'}
+                           value={player}/>
+                    <button type={"submit"} disabled={!player} onClick={(event) => playerNameSubmit(event)}>Submit
+                    </button>
+                </form>
+            </div>}
+
+
             <div className={classes.game__header}>
-                <p>step: {count}/10</p>
-                <p>Player: {playerName}</p>
+                <p>Player: <b>{playerName}</b></p>
+                <p>Step: <b>{count}</b>/10</p>
             </div>
-            {!playerName && <div className={classes.game_input__modal}>
-                <div className={classes.game_input__container}>
-                    <h2>INSERT NAME PLEASE!!</h2>
-                    <div>
-                        <input maxLength={20} onChange={(event) => onChangePlayerName(event)} type={'text'}
-                               placeholder={'insert name'} value={player}/>
-                        <button type={"submit"} onClick={() => playerNameSubmit()}>ok</button>
-                    </div>
-                </div>
-            </div>}
-            {playerName && <h1>{randomWords(tempWords)[randomWord].eng}</h1>}
-            {playerName && <div className={classes.game__container}>
-                {randomWords(tempWords).map(w => <p onClick={(e) => {
-                    choseHandler(e)
-                }} key={w.id}>{w.rus}</p>)}
-            </div>}
+            <div className={classes.game__container}>
+                {playerName && <h2 className={classes.game__question}>{randomWords(tempWords)[randomWord].eng}</h2>}
+                {playerName && <div className={classes.game__answers}>
+                    {randomWords(tempWords).map(w => <p className={classes.game_answers__item} onClick={(e) => {
+                        choseHandler(e)
+                    }} key={w.id}>{w.rus}</p>)}
+                </div>}
+            </div>
+            {count > 10 && <Navigate to='/results'/>}
         </section>
     )
 }

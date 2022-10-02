@@ -22,7 +22,8 @@ html {
 
 body {
   margin: 0;
-  height: 100%;
+  min-height: 100%;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /**
@@ -76,6 +77,7 @@ pre {
 
 a {
   background-color: transparent;
+  color: inherit;
 }
 
 /**
