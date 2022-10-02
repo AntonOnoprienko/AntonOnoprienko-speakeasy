@@ -1,23 +1,20 @@
 import classes from './layout.module.css'
 import { NavLink, Outlet } from 'react-router-dom'
-
-const setActive = ({isActive}:any) => isActive? classes.active_link:'';
+import logo from '../../assests/logo.png'
 export const Layout = () => {
+    const setActive = ({isActive}:any) => isActive? classes.active_link:'';
     return (
         <>
             <header className={classes.header}>
-                    <nav>
+                    <nav className={classes.container}>
                         <ol className={classes.navbar__list }>
-                            <NavLink to={'/main'} className={setActive}>
-                                <li className={classes.navbar__item}>Main</li>
-                            </NavLink>
-                            <NavLink to={'/adding'} className={setActive}>
-                                <li className={classes.navbar__item}>Add words</li>
+                            <NavLink to={'/'}>
+                                <li> <img src={logo} className={classes.header__logo} alt={'icon by Icons8'} /></li>
                             </NavLink>
                             <NavLink to={'/game'} className={setActive}>
-                                <li className={classes.navbar__item}>Check yourself</li>
+                                <li className={classes.navbar__item}>Test</li>
                             </NavLink>
-                            <NavLink to={'/results'} className={setActive }>
+                            <NavLink to={'/results'} className={setActive}>
                                 <li className={classes.navbar__item}>Results</li>
                             </NavLink>
                         </ol>
@@ -28,9 +25,9 @@ export const Layout = () => {
                     <Outlet />
                 </div>
             </main>
-            <footer>
+            <footer className={classes.footer}>
                 <div className={classes.container}>
-                    2022
+                    2022. onoprienkoanton88@gmail.com  
                 </div>
             </footer>
         </>

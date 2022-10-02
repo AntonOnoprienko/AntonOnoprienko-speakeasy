@@ -13,7 +13,7 @@ function App() {
         <div className={classes.app}>
             <Routes>
                 <Route path='/' element={<Layout />}>
-                    <Route path='main' element={<MainPage />} />
+                    <Route index element={<MainPage />} />
                     <Route path='game' element={<GamePage />} />
                     <Route path='adding' element={<AddingPage />} />
                     <Route path='results' element={<ResultsPage />} />

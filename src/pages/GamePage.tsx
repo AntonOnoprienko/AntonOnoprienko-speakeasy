@@ -11,12 +11,14 @@ const GamePage = () => {
     const {tempWords, count, winRate, playerName, wrongAnswers} = useAppSelector(state => state.wordReducer)
     const dispatch = useAppDispatch()
     const {increment, winRateInc, refreshResults, setName, addResult, setWrongAnswers, removeWord,createTempState} = wordSlice.actions
+    //Создает рандомное число по длине словаря
     const randomNumber = (tempWords: IWord[]) => {
         return Math.floor(Math.random() * tempWords.length)
     };
     const randomWord = Math.floor(Math.random() * 4)
     let uniqueArray: IWord[] = []
 
+    //Создает массив уникальных 4 объектов
     const randomWords = (tempWords: IWord[]): IWord[] => {
         let newWord: IWord = tempWords[randomNumber(tempWords)];
         if (!uniqueArray.includes(newWord) && uniqueArray.length < 4) uniqueArray = uniqueArray.concat(newWord)
@@ -26,16 +28,18 @@ const GamePage = () => {
         return uniqueArray;
     }
 
+    //Срабатывает при выборе ответа. Если правильный увеличивет % ответов и удаяет слово. Неправильный добавляет в массив не правильных ответов
     const choseHandler = (e: any) => {
         dispatch(increment(1))
-        if (e.target.childNodes[0].data === randomWords(tempWords)[randomWord].eng) {
+        if (e.target.childNodes[0].data === randomWords(tempWords)[randomWord].rus) {
             dispatch(winRateInc(10))
             dispatch(removeWord(randomWords(tempWords)[randomWord].id))
         } else {
-            dispatch(setWrongAnswers(randomWords(tempWords)[randomWord].rus))
+            dispatch(setWrongAnswers(randomWords(tempWords)[randomWord].eng))
         }
         checkResults()
     }
+    //Создает и отправляет результаты после 10 ответов и обновляет счетчики.
     const checkResults = () => {
         if (count > 10) {
             let result = {
@@ -50,6 +54,7 @@ const GamePage = () => {
 
         }
     }
+    //Добавляет имя и создает копию словаря
     const playerNameSubmit = () => {
         dispatch(setName(player))
         dispatch(createTempState())
@@ -79,11 +84,11 @@ const GamePage = () => {
                     </div>
                 </div>
             </div>}
-            {playerName && <h1>{randomWords(tempWords)[randomWord].rus}</h1>}
+            {playerName && <h1>{randomWords(tempWords)[randomWord].eng}</h1>}
             {playerName && <div className={classes.game__container}>
                 {randomWords(tempWords).map(w => <p onClick={(e) => {
                     choseHandler(e)
-                }} key={w.id}>{w.eng}</p>)}
+                }} key={w.id}>{w.rus}</p>)}
             </div>}
         </section>
     )

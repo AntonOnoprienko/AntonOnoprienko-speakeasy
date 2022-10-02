@@ -41,11 +41,11 @@ const AddingPage = () => {
 return (
     <>
         <form className={classes.addingPage__form}>
+            <input maxLength={20} type='text' value={eng} onChange={event => handleChangeEng(event)}
+                   placeholder='insert english word'/>
             <input  maxLength={20} type='text' value={rus} onChange={event => {
                 handleChangeRus(event)
-            }} placeholder='insert russian word'/>
-            <input maxLength={20} type='text' value={eng} onChange={event => handleChangeEng(event)}
-                   placeholder='insert english translate'/>
+            }} placeholder='insert russian translate'/>
             <button onClick={handleSubmit} disabled={isDisabled()}>Add words!</button>
         </form>
     </>

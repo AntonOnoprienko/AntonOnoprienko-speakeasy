@@ -13,7 +13,6 @@ interface WordsState {
     wrongAnswers: string[]
 }
 
-
 const initialState: WordsState = {
     words: [
         {
@@ -197,40 +196,47 @@ export const wordSlice = createSlice({
     name: 'word',
     initialState,
     reducers: {
+        //Добавляет новое слово
         addWord(state, action: PayloadAction<IWord>) {
             state.words.push(action.payload);
         },
+        //Увеличивает счетчик
         increment(state,action:PayloadAction<number>){
             state.count += action.payload;
         },
+        //Увеличивает % правильных ответов
         winRateInc(state,action:PayloadAction<number>){
             state.winRate += action.payload;
         },
+        //Обновляет результаты
         refreshResults(state){
             state.winRate = 0;
             state.count = 1;
             state.playerName = '';
         },
+        //Добавляет имя
         setName(state,action:PayloadAction<string>){
            state.playerName = action.payload;
         },
+        //Добавляет результаты
         addResult(state,action:PayloadAction<IResult>){
             state.playerResults.push(action.payload);
             state.winRate = 0;
             state.count = 1;
             state.wrongAnswers = [];
         },
+        //Добавляет неправильные ответы
         setWrongAnswers(state,action:PayloadAction<string>){
             state.wrongAnswers.push(action.payload)
         },
+        //Удаляет отгаданое слоово из копии массива словаря
         removeWord(state,action:PayloadAction<number>){
             state.tempWords = state.tempWords.filter(w => w.id !== action.payload)
         },
+        //Обновляет копия словаря после ввода имени
         createTempState(state){
             state.tempWords = state.words
         },
-
-
     }
 })
 

@@ -18,10 +18,10 @@ export const ResultsPage = () => {
                         <p><span>Data:</span>{r.data}</p>
                         <p><span>Player name:</span> {r.playerName}</p>
                         <p><span>Right answers:</span> {r.winRate}%</p>
-                        <p>Wrong answers:
-                            {r.wrongAnswers.map(a =>
-                                <span key={a}> "{a.toUpperCase()}", </span>)}
-                        </p>
+                        {r.wrongAnswers.length ?
+                            <p>Wrong answers: {r.wrongAnswers.map(a =>
+                                <span key={a}> "{a.toUpperCase()} ", </span>)}</p>:
+                            <b><p style={{color:'green',fontSize:'18px'}}>Congratulations! Everything is correct!</p></b> }
                     </div>)
             }
 
