@@ -1,5 +1,6 @@
 {
   "name": "speakeasy",
+  "homepage": "https://antononoprienko.github.io/speakeasy/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
