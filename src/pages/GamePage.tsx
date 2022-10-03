@@ -1,12 +1,12 @@
 import classes from "./pages.module.css";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {wordSlice} from "../store/reducers/WordSlice";
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
 import {IWord} from "../models/IWords";
 
 const GamePage = () => {
-
+    console.log('Render page!')
     const [player, setPlayer] = useState('')
     const {tempWords, count, winRate, playerName, wrongAnswers} = useAppSelector(state => state.wordReducer)
     const dispatch = useAppDispatch()
@@ -42,15 +42,14 @@ const GamePage = () => {
         dispatch(increment(1))
         if (e.target.childNodes[0].data === randomWords(tempWords)[randomWord].rus) {
             dispatch(winRateInc(10))
-            dispatch(removeWord(randomWords(tempWords)[randomWord].id))
         } else {
-            dispatch(removeWord(randomWords(tempWords)[randomWord].id))
             dispatch(setWrongAnswers(randomWords(tempWords)[randomWord].eng))
         }
+        dispatch(removeWord(randomWords(tempWords)[randomWord].id))
         checkResults()
     }
     //Создает и отправляет результаты после 10 ответов и обновляет счетчики.
-    const checkResults = () => {
+    const checkResults = useCallback(() => {
         if (count > 10) {
             let result = {
                 id: Date.now(),
@@ -61,15 +60,22 @@ const GamePage = () => {
             }
             dispatch(addResult(result))
             dispatch(refreshResults())
-
         }
-    }
+    }, [
+        count,
+        playerName,
+        winRate,
+        wrongAnswers,
+        dispatch,
+        addResult,
+        refreshResults
+    ])
+
     //Добавляет имя и создает копию словаря
     const playerNameSubmit = (event: React.FormEvent<HTMLButtonElement>) => {
         event.preventDefault()
         dispatch(setName(player))
         dispatch(createTempState())
-        console.log(player)
     }
     const onChangePlayerName = (event: React.FormEvent<HTMLInputElement>) => {
         setPlayer(event.currentTarget.value)
@@ -96,7 +102,8 @@ const GamePage = () => {
                 <p>Step: <b>{count}</b>/10</p>
             </div>
             <div className={classes.game__container}>
-                {playerName && <h2 className={ randomWords(tempWords)[randomWord].eng.length < 12 ? classes.game__question : classes.game__question_longName} >{randomWords(tempWords)[randomWord].eng}</h2>}
+                {playerName &&
+                    <h2 className={randomWords(tempWords)[randomWord].eng.length < 12 ? classes.game__question : classes.game__question_longName}>{randomWords(tempWords)[randomWord].eng}</h2>}
                 {playerName && <div className={classes.game__answers}>
                     {randomWords(tempWords).map(w => <p className={classes.game_answers__item} onClick={(e) => {
                         choseHandler(e)
