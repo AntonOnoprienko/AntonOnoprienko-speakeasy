@@ -10,7 +10,7 @@ export const Layout = () => {
                 <nav className={classes.container}>
                     <ol className={classes.navbar__list}>
                         <NavLink to={'/'}>
-                            <li><img src={logo} className={classes.header__logo} alt={'icon by Icons8'}/></li>
+                            <li><img src={logo} width={85} height={85} className={classes.header__logo} alt={'icon by Icons8'}/></li>
                         </NavLink>
                         <NavLink to={'/game'} className={setActive}>
                             <li className={classes.navbar__item}>TEST</li>
