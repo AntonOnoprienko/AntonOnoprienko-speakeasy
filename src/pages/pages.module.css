@@ -54,13 +54,14 @@
 }
 
 .addingPage__form button {
+    border: 1px solid #ffff;
     margin-top: 23px;
     height: 55px;
     width: 100%;
-    border: none;
     border-radius: 10px;
-    color: #613F75;
+    color: #ffff;
     cursor: pointer;
+    background-color: #ef798a;
 }
 
 .addingPage__form button:hover{
@@ -68,9 +69,11 @@
 }
 
 .addingPage__form button:disabled{
+    border: 1px solid #ffff;
     color: white;
     box-shadow: none;
     cursor: default;
+    opacity: 0.4;
 }
 
 .addingPage__success{
