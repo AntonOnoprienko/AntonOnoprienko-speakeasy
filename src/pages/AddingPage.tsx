@@ -53,7 +53,7 @@ const AddingPage = () => {
                 <input id='eng' maxLength={20} autoComplete={'off'} type='text' value={eng}
                        onChange={event => handleChangeEng(event)}/>
 
-                <label htmlFor={'rus'}>Insert russian translate</label>
+                <label htmlFor={'rus'}>Insert translate</label>
                 <input id='rus' maxLength={20} autoComplete={'off'} type='text' value={rus}
                        onChange={event => handleChangeRus(event)}/>
                 {isExist && <p className={classes.addingPage__error} onClick={()=>setIsExist(false)}>The word <span className={classes.addingPage__error_word}>{lastWord}</span> already exists in the dictionary.</p>}
